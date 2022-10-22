@@ -1,4 +1,9 @@
 # Databricks notebook source
+# MAGIC %md 
+# MAGIC You may find this series of notebooks at https://github.com/databricks-industry-solutions/customer-er. For more information about this solution accelerator, visit https://www.databricks.com/solutions/accelerators/customer-entity-resolution.
+
+# COMMAND ----------
+
 # MAGIC %md The purpose of this notebook is to demonstrate the incremental workflow by which Zingg applies a trained model to newly arriving data. 
 
 # COMMAND ----------

@@ -1,4 +1,9 @@
 # Databricks notebook source
+# MAGIC %md 
+# MAGIC You may find this series of notebooks at https://github.com/databricks-industry-solutions/customer-er. For more information about this solution accelerator, visit https://www.databricks.com/solutions/accelerators/customer-entity-resolution.
+
+# COMMAND ----------
+
 # MAGIC %md The purpose of this notebook is to setup the data assets needed by the remaining notebooks in the customer entity-resolution solution accelerator. 
 
 # COMMAND ----------
