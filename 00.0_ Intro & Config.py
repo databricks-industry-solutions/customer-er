@@ -196,6 +196,10 @@ class ZinggJob:
     # get list of jobs in databricks workspace
     job_resp = requests.get(f'https://{self.url}/api/2.0/jobs/list', headers=self._headers)
     
+    # Handle edge case where no jobs are present in the workspace, otherwise attempting to iterate over job_resp will throw an error
+    if len(job_resp.json()) == 0:
+        return None
+      
     # find job by name
     for job in job_resp.json().get('jobs'):
         if job.get('settings').get('name')==self.name:
