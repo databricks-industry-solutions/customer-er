@@ -33,7 +33,7 @@
 # COMMAND ----------
 
 # DBTITLE 1,Set Additional Configurations
-# folders housing candidate pairs, labeled (marked) and unlabled (unmarked)
+# folders housing candidate pairs, labeled (marked) and unlabeled (unmarked)
 MARKED_DIR = config['dir']['zingg'] + '/' + config['model name'] + '/trainingData/marked'
 UNMARKED_DIR = config['dir']['zingg'] + '/' + config['model name'] + '/trainingData/unmarked'
 OUTPUT_DIR = config['dir']['output'] + '/initial'
