@@ -181,7 +181,7 @@ class ZinggJob:
     # attribute assignments
     self.name = name
     self.url = databricks_workspace_url
-    self._headers = {'Authorization': f'Bearer {api_token}'}
+    self._headers = {'Authorization': f'Bearer {api_token}', 'User-Agent':'zinggai_zingg'}
     
     # get job id (based on job name)
     self.id = self._get_job_id()
