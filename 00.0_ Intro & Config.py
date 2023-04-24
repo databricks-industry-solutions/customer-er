@@ -197,7 +197,7 @@ class ZinggJob:
     job_resp = requests.get(f'https://{self.url}/api/2.0/jobs/list', headers=self._headers)
     
     # Handle edge case where no jobs are present in the workspace, otherwise attempting to iterate over job_resp will throw an error
-    if len(job_resp.json()) == 0:
+    if len(job_resp.json()) == 0 or job_resp.json().get('jobs') is None:
         return None
       
     # find job by name
