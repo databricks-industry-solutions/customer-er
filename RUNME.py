@@ -32,6 +32,15 @@ from solacc.companion import NotebookSolutionCompanion
 
 # COMMAND ----------
 
+# MAGIC %sh 
+# MAGIC rm -rf /dbfs/tmp/solacc/customer_er/jar/
+# MAGIC mkdir -p /dbfs/tmp/solacc/customer_er/jar/
+# MAGIC cd /dbfs/tmp/solacc/customer_er/jar/
+# MAGIC wget https://github.com/zinggAI/zingg/releases/download/v0.3.4/zingg-0.3.4-SNAPSHOT-spark-3.1.2.tar.gz
+# MAGIC tar -xvf zingg-0.3.4-SNAPSHOT-spark-3.1.2.tar.gz 
+
+# COMMAND ----------
+
 job_json = {
         "timeout_seconds": 28800,
         "max_concurrent_runs": 1,
@@ -44,10 +53,7 @@ job_json = {
                 "job_cluster_key": "zingg_cluster",
                 "libraries": [],
                 "notebook_task": {
-                    "notebook_path": f"00.0_ Intro & Config",
-                    "base_parameters": {
-                        "holdout days": "90"
-                    }
+                    "notebook_path": f"00_Intro & Config"
                 },
                 "task_key": "zingg_01",
                 "description": ""
@@ -55,10 +61,7 @@ job_json = {
             {
                 "job_cluster_key": "zingg_cluster",
                 "notebook_task": {
-                    "notebook_path": f"00.1_ Prepare Data",
-                    "base_parameters": {
-                        "holdout days": "90"
-                    }
+                    "notebook_path": f"01_Prepare Data"
                 },
                 "task_key": "zingg_02",
                 "depends_on": [
@@ -70,45 +73,34 @@ job_json = {
             {
                 "job_cluster_key": "zingg_cluster",
                 "notebook_task": {
-                    "notebook_path": f"00.2_ Prepare Jobs",
-                    "base_parameters": {
-                        "holdout days": "90"
-                    }
+                    "notebook_path": f"02_Initial Workflow"
                 },
                 "task_key": "zingg_03",
                 "depends_on": [
                     {
                         "task_key": "zingg_02"
                     }
+                ],
+                "libraries": [
+                    {
+                        "jar": "dbfs:/tmp/solacc/customer_er/jar/zingg-0.3.4-SNAPSHOT/zingg-0.3.4-SNAPSHOT.jar"
+                    }
                 ]
             },
             {
                 "job_cluster_key": "zingg_cluster",
                 "notebook_task": {
-                    "notebook_path": f"01_ Initial Workflow",
-                    "base_parameters": {
-                        "holdout days": "90"
-                    }
+                    "notebook_path": f"03_Incremental Workflow"
                 },
                 "task_key": "zingg_04",
                 "depends_on": [
                     {
                         "task_key": "zingg_03"
                     }
-                ]
-            },
-            {
-                "job_cluster_key": "zingg_cluster",
-                "notebook_task": {
-                    "notebook_path": f"02_ Incremental Workflow",
-                    "base_parameters": {
-                        "holdout days": "90"
-                    }
-                },
-                "task_key": "zingg_05",
-                "depends_on": [
+                ],
+                "libraries": [
                     {
-                        "task_key": "zingg_04"
+                        "jar": "dbfs:/tmp/solacc/customer_er/jar/zingg-0.3.4-SNAPSHOT/zingg-0.3.4-SNAPSHOT.jar"
                     }
                 ]
             }
