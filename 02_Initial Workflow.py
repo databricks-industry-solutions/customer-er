@@ -165,7 +165,7 @@ args.setFieldDefinition(field_defs)
 args.setNumPartitions( sc.defaultParallelism * 20 ) # default parallelism reflects databricks's cluster capacity
 
 # define sample size
-args.setLabelDataSampleSize(0.1)  
+args.setLabelDataSampleSize(0.05)  
 
 # COMMAND ----------
 

@@ -106,13 +106,13 @@ args.setModelId(config['model name'])
 # DBTITLE 1,Config Model Inputs
 # configure priors Zingg input pipe
 priors_inputPipe = Pipe(name='priors', format='delta')
-priors_inputPipe.addProperty('path', prior_data_path)
+priors_inputPipe.addProperty('path', prior_data_dir)
 args.setData(priors_inputPipe)
 
 # configure incoming Zingg input pipe
-incoming_input_path = spark.sql("DESCRIBE DETAIL incremental").select('location').collect()[0]['location']
+incoming_input_dir = spark.sql("DESCRIBE DETAIL incremental").select('location').collect()[0]['location']
 incoming_inputPipe = Pipe(name='incoming', format='delta')
-incoming_inputPipe.addProperty('path', incoming_input_path )
+incoming_inputPipe.addProperty('path', incoming_input_dir )
 
 # set input data pipelines
 args.setData(priors_inputPipe, incoming_inputPipe)
@@ -186,7 +186,7 @@ linked = (
   spark
     .read
       .format('delta')
-      .load(LINKED_OUTPUT_DIR)
+      .load(linked_output_dir)
     .selectExpr(
       'z_score',
       'z_cluster',
@@ -219,7 +219,7 @@ linked_prior = (
     .join( 
       spark.table('cluster_members').alias('b'), 
       on=fn.expr("""
-      a.recid=COALESCE(b.recid,-1)
+      a.recid=COALESCE(b.recid,-1) AND
       a.givenname=COALESCE(b.givenname,'') AND 
       a.surname=COALESCE(b.surname,'') AND 
       a.suburb=COALESCE(b.suburb,'') AND 
@@ -311,9 +311,9 @@ args.setModelId(config['model name'])
 
 # DBTITLE 1,Config Model Inputs
 # configure incoming Zingg input pipe
-incoming_input_path = spark.sql("DESCRIBE DETAIL incremental").select('location').collect()[0]['location']
+incoming_input_dir = spark.sql("DESCRIBE DETAIL incremental").select('location').collect()[0]['location']
 incoming_inputPipe = Pipe(name='incoming', format='delta')
-incoming_inputPipe.addProperty('path', incoming_input_path )
+incoming_inputPipe.addProperty('path', incoming_input_dir )
 
 # set input data pipelines
 args.setData(incoming_inputPipe)

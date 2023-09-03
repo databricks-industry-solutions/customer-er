@@ -25,6 +25,7 @@
 
 # DBTITLE 0,Install util packages
 # MAGIC %pip install git+https://github.com/databricks-academy/dbacademy@v1.0.13 git+https://github.com/databricks-industry-solutions/notebook-solution-companion@safe-print-html --quiet --disable-pip-version-check
+# MAGIC dbutils.library.restartPython()
 
 # COMMAND ----------
 
@@ -109,11 +110,11 @@ job_json = {
             {
                 "job_cluster_key": "zingg_cluster",
                 "new_cluster": {
-                    "spark_version": "12.2.x-cpu-ml-scala2.12",
+                    "spark_version": "12.2.x-scala2.12",
                 "spark_conf": {
                     "spark.databricks.delta.formatCheck.enabled": "false"
                     },
-                    "num_workers": 2,
+                    "num_workers": 4,
                     "node_type_id": {"AWS": "i3.xlarge", "MSA": "Standard_DS3_v2", "GCP": "n1-highmem-4"}, # different from standard API
                     "custom_tags": {
                         "usage": "solacc_automation"
@@ -129,8 +130,5 @@ job_json = {
 
 dbutils.widgets.dropdown("run_job", "False", ["True", "False"])
 run_job = dbutils.widgets.get("run_job") == "True"
-NotebookSolutionCompanion().deploy_compute(job_json, run_job=run_job)
-
-# COMMAND ----------
-
-
+nsc = NotebookSolutionCompanion()
+nsc.deploy_compute(job_json, run_job=run_job)
