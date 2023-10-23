@@ -54,32 +54,49 @@ job_json = {
                 "job_cluster_key": "zingg_cluster",
                 "libraries": [],
                 "notebook_task": {
-                    "notebook_path": f"00_Intro & Config"
+                    "notebook_path": f"00_Intro_&_Config"
                 },
-                "task_key": "zingg_01",
+                "task_key": "00",
                 "description": ""
             },
             {
                 "job_cluster_key": "zingg_cluster",
                 "notebook_task": {
-                    "notebook_path": f"01_Prepare Data"
+                    "notebook_path": f"01_Prepare_Data"
                 },
-                "task_key": "zingg_02",
+                "task_key": "01",
                 "depends_on": [
                     {
-                        "task_key": "zingg_01"
+                        "task_key": "00"
                     }
                 ]
             },
             {
                 "job_cluster_key": "zingg_cluster",
                 "notebook_task": {
-                    "notebook_path": f"02_Initial Workflow"
+                    "notebook_path": f"02_Initial_Workflow_Part_A"
                 },
-                "task_key": "zingg_03",
+                "task_key": "02",
                 "depends_on": [
                     {
-                        "task_key": "zingg_02"
+                        "task_key": "01"
+                    }
+                ],
+                "libraries": [
+                    {
+                        "jar": "dbfs:/tmp/solacc/customer_er/jar/zingg-0.3.4-SNAPSHOT/zingg-0.3.4-SNAPSHOT.jar"
+                    }
+                ]
+            },
+            {
+                "job_cluster_key": "zingg_cluster2",
+                "notebook_task": {
+                    "notebook_path": f"02_Initial_Workflow_Part_B"
+                },
+                "task_key": "03",
+                "depends_on": [
+                    {
+                        "task_key": "02"
                     }
                 ],
                 "libraries": [
@@ -91,12 +108,12 @@ job_json = {
             {
                 "job_cluster_key": "zingg_cluster",
                 "notebook_task": {
-                    "notebook_path": f"03_Incremental Workflow"
+                    "notebook_path": f"03_Incremental_Workflow"
                 },
-                "task_key": "zingg_04",
+                "task_key": "04",
                 "depends_on": [
                     {
-                        "task_key": "zingg_03"
+                        "task_key": "03"
                     }
                 ],
                 "libraries": [
@@ -109,6 +126,20 @@ job_json = {
         "job_clusters": [
             {
                 "job_cluster_key": "zingg_cluster",
+                "new_cluster": {
+                    "spark_version": "12.2.x-scala2.12",
+                "spark_conf": {
+                    "spark.databricks.delta.formatCheck.enabled": "false"
+                    },
+                    "num_workers": 4,
+                    "node_type_id": {"AWS": "i3.xlarge", "MSA": "Standard_DS3_v2", "GCP": "n1-highmem-4"}, # different from standard API
+                    "custom_tags": {
+                        "usage": "solacc_automation"
+                    },
+                }
+            },
+            {
+                "job_cluster_key": "zingg_cluster2",
                 "new_cluster": {
                     "spark_version": "12.2.x-scala2.12",
                 "spark_conf": {

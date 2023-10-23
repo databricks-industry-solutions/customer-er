@@ -10,7 +10,7 @@
 # COMMAND ----------
 
 # DBTITLE 1,Get Config
-# MAGIC %run "./00_Intro & Config"
+# MAGIC %run "./00_Intro_&_Config"
 
 # COMMAND ----------
 
@@ -32,9 +32,11 @@ import os
 # COMMAND ----------
 
 # DBTITLE 1,Reset the Directories
-for k,v in config['dir'].items(): # for each directory identified in config
-    dbutils.fs.rm(v, recurse=True)   # remove the dir and all child content
-    dbutils.fs.mkdirs(dir)           # recreate empty dir
+## CODE DISABLED TO ENABLE AUTOMATED TESTING
+
+#for k,v in config['dir'].items(): # for each directory identified in config
+#    dbutils.fs.rm(v, recurse=True)   # remove the dir and all child content
+#    dbutils.fs.mkdirs(dir)           # recreate empty dir
 
 # COMMAND ----------
 
@@ -72,7 +74,7 @@ os.environ['DOWNLOADS_FOLDER'] = '/dbfs' + config['dir']['downloads']
 # MAGIC cd /$DOWNLOADS_FOLDER
 # MAGIC
 # MAGIC # download the data file
-# MAGIC wget -q https://www.informatik.uni-leipzig.de/~saeedi/5Party-ocp20.tar.gz
+# MAGIC wget -q https://dbs.uni-leipzig.de/ds/5Party-ocp20.tar.gz
 # MAGIC
 # MAGIC # decompress the data file
 # MAGIC tar -xf 5Party-ocp20.tar.gz

@@ -39,7 +39,7 @@ if zingg_jar_path is None:
 # COMMAND ----------
 
 # DBTITLE 1,Initialize Config
-# MAGIC %run "./00_Intro & Config"
+# MAGIC %run "./00_Intro_&_Config"
 
 # COMMAND ----------
 

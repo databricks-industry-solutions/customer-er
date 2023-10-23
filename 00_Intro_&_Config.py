@@ -91,7 +91,8 @@ config['model name'] = 'zingg_ncvoters'
 
 # DBTITLE 1,Directories
 # path where files are stored
-mount_path = '/tmp/zingg_ncvoters'
+#mount_path = '/tmp/zingg_ncvoters'
+mount_path = '/home/bryan.smithdatabricks.com/zingg_ncvoters'
 
 config['dir'] = {}
 
